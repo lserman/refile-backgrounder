@@ -37,6 +37,8 @@ module Refile
           record._skip_refile_backgrounder = true
           record.send "#{attachment_name}_cache_id=", nil if record.respond_to? "#{attachment_name}_cache_id="
           record.send "#{attachment_name}_id=", file.id   if record.respond_to? "#{attachment_name}_id="
+          record.send "#{attachment_name}_id_will_change!"
+          record.send "#{attachment_name}_cache_id_will_change!"
           record.save
         end
 
