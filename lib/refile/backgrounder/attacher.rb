@@ -10,13 +10,17 @@ module Refile
         super || (background? and record.send("#{name}_cache_id"))
       end
 
-      def cache!(*)
+      def set(*)
         super
-        record.send "#{name}_cache_id=", cache_id if background?
+        save_cache_id
       end
 
       def store!
         super unless background?
+      end
+
+      def save_cache_id
+        record.send "#{name}_cache_id=", cache_id if background?
       end
 
     end
