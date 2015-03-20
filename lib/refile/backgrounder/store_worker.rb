@@ -4,9 +4,10 @@ module Refile
       attr_reader :record, :attachment_name
       queue_as :refile
 
-      def perform(record, attachment_name)
+      def perform(record, attachment_name, metadata = nil)
         @record = record
         @attachment_name = attachment_name
+        @record.send "#{attachment_name}=", metadata if metadata
         return unless attachment_cached?
 
         file = attacher.get
