@@ -12,7 +12,7 @@ module Refile
 
       def set(*)
         super
-        save_cache_id
+        save_cache_id if background?
       end
 
       def store!
